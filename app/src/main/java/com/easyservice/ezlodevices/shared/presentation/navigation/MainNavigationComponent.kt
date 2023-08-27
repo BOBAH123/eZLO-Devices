@@ -33,7 +33,8 @@ fun MainNavigationComponent(navController: NavHostController) {
             },
         )
         editDetailsRouteNavigation(
-            rootRoute = Destinations.EDIT_DETAILS.route
+            rootRoute = Destinations.EDIT_DETAILS.route,
+            navigateBack = { navController.navigate(Destinations.HOME.route) }
         )
     }
 }

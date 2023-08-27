@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.easyservice.ezlodevices.R
 import com.easyservice.ezlodevices.shared.presentation.ui.theme.EZLODevicesTheme
@@ -26,7 +27,9 @@ import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingNormal
 @Composable
 fun AppHeader() {
     Column(
-        Modifier.fillMaxWidth().background(Color.LightGray),
+        Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
         Spacer(modifier = Modifier.height(spacingNormal))
@@ -36,7 +39,7 @@ fun AppHeader() {
                 .size(profileImageHeight)
                 .clip(CircleShape),
             painter = painterResource(id = R.drawable.my_photo),
-            contentDescription = "",
+            contentDescription = stringResource(id = R.string.profile_image),
             contentScale = ContentScale.Crop,
         )
 

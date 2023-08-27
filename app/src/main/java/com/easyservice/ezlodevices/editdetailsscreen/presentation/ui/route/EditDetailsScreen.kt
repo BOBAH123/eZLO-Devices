@@ -1,5 +1,6 @@
 package com.easyservice.ezlodevices.editdetailsscreen.presentation.ui.route
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.easyservice.ezlodevices.R
 import com.easyservice.ezlodevices.editdetailsscreen.presentation.ui.viewmodel.EditDetailsScreenViewModel
 import com.easyservice.ezlodevices.shared.presentation.ui.components.AppHeader
 import com.easyservice.ezlodevices.shared.presentation.ui.theme.Typography
@@ -29,9 +32,12 @@ import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingNormal
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditDetailsScreen(
-    viewModel: EditDetailsScreenViewModel
+    viewModel: EditDetailsScreenViewModel,
+    navigateBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    BackHandler(onBack = navigateBack)
 
     Column(Modifier.fillMaxSize()) {
         AppHeader()
@@ -47,7 +53,7 @@ fun EditDetailsScreen(
                 ) {
                     Image(
                         painter = painterResource(id = device.platform.imageRes),
-                        contentDescription = ""
+                        contentDescription = device.platform.value
                     )
 
                     Spacer(modifier = Modifier.width(spacingNormal))
@@ -66,8 +72,14 @@ fun EditDetailsScreen(
                 }
 
                 if (uiState.isEditMode) {
-                    Button(onClick = viewModel::updateDeviceDetails) {
-                        Text(text = "Save changes")
+                    Button(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = spacingNormal),
+                        onClick = viewModel::updateDeviceDetails
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.save_changes_btn_text),
+                            style = Typography.titleMedium
+                        )
                     }
                 }
 

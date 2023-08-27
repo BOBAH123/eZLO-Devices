@@ -18,7 +18,7 @@ class MainScreenViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(
         MainScreenViewModelState(
-            devices = emptyList(),
+            devices = null,
             isDialogShown = false,
             selectedDeviceId = null
         )
@@ -37,10 +37,10 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    fun refetchList() {
+    fun refetchListFromRemote() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.update { uiState ->
-                uiState.copy(devices = emptyList())
+                uiState.copy(devices = null)
             }
             repository.reloadDeviceListFromRemote()
             fetchAllDevices()
@@ -55,15 +55,21 @@ class MainScreenViewModel @Inject constructor(
 
     fun deleteDevice() {
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.value.selectedDeviceId?.let { repository.deleteDeviceByPK(it) }
-            fetchAllDevices()
+            _uiState.update { uiState ->
+                uiState.selectedDeviceId?.let { repository.deleteDeviceByPK(it) }
+                uiState.copy(
+                    devices = uiState.devices?.filter {
+                        it.pKDevice != uiState.selectedDeviceId
+                    }
+                )
+            }
             showDialog(false, null)
         }
     }
 }
 
 data class MainScreenViewModelState(
-    val devices: List<DevicePresentationModel>,
+    val devices: List<DevicePresentationModel>?,
     val isDialogShown: Boolean,
     val selectedDeviceId: Int?,
 )

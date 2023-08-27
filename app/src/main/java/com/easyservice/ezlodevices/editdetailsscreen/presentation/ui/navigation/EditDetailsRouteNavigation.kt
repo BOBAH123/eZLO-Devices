@@ -6,9 +6,13 @@ import androidx.navigation.compose.composable
 import com.easyservice.ezlodevices.editdetailsscreen.presentation.ui.route.EditDetailsScreen
 
 fun NavGraphBuilder.editDetailsRouteNavigation(
-    rootRoute: String
+    rootRoute: String,
+    navigateBack: () -> Unit
 ) {
     composable(rootRoute) {
-        EditDetailsScreen(viewModel = hiltViewModel())
+        EditDetailsScreen(
+            viewModel = hiltViewModel(),
+            navigateBack = navigateBack
+        )
     }
 }
