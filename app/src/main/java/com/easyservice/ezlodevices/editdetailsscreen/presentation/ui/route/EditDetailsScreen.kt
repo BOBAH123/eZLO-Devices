@@ -20,17 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.easyservice.ezlodevices.editdetailsscreen.presentation.ui.viewmodel.EditDetailsScreenViewModel
 import com.easyservice.ezlodevices.shared.presentation.ui.components.AppHeader
-import com.easyservice.ezlodevices.shared.presentation.ui.theme.EZLODevicesTheme
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.Typography
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingBig
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingNormal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(
+fun EditDetailsScreen(
     viewModel: EditDetailsScreenViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -40,7 +38,7 @@ fun DetailsScreen(
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(horizontal = 12.dp)
+                .padding(horizontal = spacingBig)
         ) {
             uiState.device?.let { device ->
                 Row(
@@ -52,7 +50,7 @@ fun DetailsScreen(
                         contentDescription = ""
                     )
 
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(spacingNormal))
 
                     if (uiState.isEditMode) {
                         TextField(
@@ -62,9 +60,7 @@ fun DetailsScreen(
                     } else {
                         Text(
                             text = device.deviceTitle.orEmpty(),
-                            fontSize = 26.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.DarkGray
+                            style = Typography.titleLarge
                         )
                     }
                 }
@@ -75,44 +71,34 @@ fun DetailsScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(spacingNormal))
 
                 Text(
                     text = "SN: ${device.pKDevice}",
-                    fontSize = 20.sp,
+                    style = Typography.titleMedium,
                     color = Color.Gray
                 )
 
                 Text(
                     text = "MAC Address: ${device.macAddress}",
-                    fontSize = 20.sp,
+                    style = Typography.titleMedium,
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(spacingNormal))
 
                 Text(
                     text = "Firmware: ${device.firmware}",
-                    fontSize = 20.sp,
+                    style = Typography.titleMedium,
                     color = Color.Gray
                 )
 
                 Text(
                     text = "Model: ${device.platform.value}",
-                    fontSize = 20.sp,
+                    style = Typography.titleMedium,
                     color = Color.Gray
                 )
             }
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun DetailsScreenPreview() {
-    EZLODevicesTheme {
-//        DetailsScreen(
-//
-//        )
     }
 }

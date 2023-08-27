@@ -26,7 +26,6 @@ interface AppModule {
 
     companion object {
         private const val BASE_URL = "https://veramobile.mios.com/test_android/"
-//        private const val BASE_URL = "https://veramobile.mios.com/test_android/drawable-hdpi/" // more results
 
         @Singleton
         @Provides

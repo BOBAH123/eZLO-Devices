@@ -33,14 +33,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.easyservice.ezlodevices.R
 import com.easyservice.ezlodevices.homescreen.presentation.ui.viewmodel.MainScreenViewModel
 import com.easyservice.ezlodevices.shared.presentation.ui.components.AppHeader
-import com.easyservice.ezlodevices.shared.presentation.ui.theme.EZLODevicesTheme
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.Typography
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.arrowIconHeight
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingNormal
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -63,13 +62,14 @@ fun MainScreen(
             Dialog(onDismissRequest = { viewModel.showDialog(false, null) }) {
                 Column(
                     modifier = Modifier.fillMaxWidth()
+                        .clip(RoundedCornerShape(10))
                         .background(Color.White)
-                        .clip(RoundedCornerShape(16.dp)),
+                        .padding(spacingNormal),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "Do you want to Edit/Delete device?")
                     Button(
-                        modifier = Modifier.fillMaxWidth().padding(12.dp),
+                        modifier = Modifier.fillMaxWidth().padding(spacingNormal),
                         onClick = {
                             uiState.selectedDeviceId?.let(goToEditDeviceDetails)
                             viewModel.showDialog(false, null)
@@ -78,13 +78,13 @@ fun MainScreen(
                         Text(text = "Edit")
                     }
                     Button(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = spacingNormal),
                         onClick = viewModel::deleteDevice
                     ) {
                         Text(text = "Delete")
                     }
                     Button(
-                        modifier = Modifier.fillMaxWidth().padding(12.dp),
+                        modifier = Modifier.fillMaxWidth().padding(spacingNormal),
                         onClick = { viewModel.showDialog(false, null) }
                     ) {
                         Text(text = "Close")
@@ -102,11 +102,11 @@ fun MainScreen(
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 12.dp)
                             .combinedClickable(
                                 onClick = { goToDeviceDetails(it.pKDevice) },
                                 onLongClick = { viewModel.showDialog(true, it.pKDevice) }
-                            ),
+                            )
+                            .padding(start = spacingNormal),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
@@ -114,12 +114,12 @@ fun MainScreen(
                             contentDescription = ""
                         )
 
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = Modifier.width(spacingNormal))
 
                         Column {
                             Text(
                                 text = it.deviceTitle ?: "",
-                                fontSize = 20.sp,
+                                style = Typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(text = "SN: ${it.pKDevice}")
@@ -128,7 +128,7 @@ fun MainScreen(
                         Spacer(modifier = Modifier.weight(1f))
 
                         Icon(
-                            modifier = Modifier.size(50.dp),
+                            modifier = Modifier.size(arrowIconHeight),
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arow_right),
                             contentDescription = "",
                             tint = Color.Gray
@@ -139,15 +139,5 @@ fun MainScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun MainScreenPreview() {
-    EZLODevicesTheme {
-//        MainScreen(
-//
-//        )
     }
 }

@@ -16,12 +16,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.easyservice.ezlodevices.R
 import com.easyservice.ezlodevices.shared.presentation.ui.theme.EZLODevicesTheme
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.Typography
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.profileImageHeight
+import com.easyservice.ezlodevices.shared.presentation.ui.theme.spacingNormal
 
 @Composable
 fun AppHeader() {
@@ -29,26 +29,25 @@ fun AppHeader() {
         Modifier.fillMaxWidth().background(Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(spacingNormal))
 
         Image(
             modifier = Modifier
-                .size(300.dp)
+                .size(profileImageHeight)
                 .clip(CircleShape),
             painter = painterResource(id = R.drawable.my_photo),
             contentDescription = "",
             contentScale = ContentScale.Crop,
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(spacingNormal))
 
         Text(
             text = "Volodymyr Lesko",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
+            style = Typography.titleLarge,
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(spacingNormal))
     }
 }
 
