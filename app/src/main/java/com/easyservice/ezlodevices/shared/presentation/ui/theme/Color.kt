@@ -1,4 +1,4 @@
-package com.easyservice.ezlodevices.ui.theme
+package com.easyservice.ezlodevices.shared.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
